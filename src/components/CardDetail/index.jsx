@@ -36,6 +36,8 @@ const CardDetail = () => {
       <p>{producto.description}</p>
       <p>$ {producto.price}</p>
       <p>{producto.category}</p>
+      <button>Agregar a carrito
+      </button>
     </div>
   );
 };

@@ -33,7 +33,7 @@ const Navbar  = ({icono}) => {
         to="/cart"
         style={({ isActive }) => (isActive ? activeStyle : undefined)}
       >
-      
+      <img src= "https://cdn-icons-png.flaticon.com/512/107/107831.png" alt="" width="50" height="50" />
       </NavLink>
     </nav>
   );

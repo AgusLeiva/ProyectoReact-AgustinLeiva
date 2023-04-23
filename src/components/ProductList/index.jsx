@@ -7,7 +7,13 @@ const ProductList = ({ productos }) => {
         <Card key={producto.id} producto={producto} />
       ))}
     </div>
+
   );
+
+  
 };
+
+
+
 
 export default ProductList;

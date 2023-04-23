@@ -27,6 +27,7 @@ function App() {
 
      <div>
       <Navbar icono="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqWnvWlrNEMWXXy-SpDyiD6MGp8lMPegST4A&usqp=CAU" />
+      
       <h1>My app</h1>
       <Routes>
       <Route path="/" element={<Navigate to="/home" />} />
