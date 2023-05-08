@@ -1,52 +1,56 @@
-
-import { useEffect, useState } from 'react'
-import { Navigate, Route, Routes } from "react-router-dom";
-import './App.css'
-import CardDetail from "./components/CardDetail";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import ProductList from "./components/ProductList";
-
-
+import "./App.css";
+import Home from "./component/Home";
+import Navbar from "./component/Navbar";
+import {  Routes, Route } from "react-router-dom";
+import Products from "./component/Products";
+import Product from "./component/Product";
+import Cart from "./component/Cart";
+import db from "../db/firebase-config";
+import { getDocs, collection } from "firebase/firestore";
+import { useEffect, useState } from "react";
 
 function App() {
 
-  const [productos, setProductos] = useState([]);
+  const [items, setItems] = useState([]);
+  const itemsRef = collection(db, "products");
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputPrice, setInputPrice] = useState("");
+
+  const getItems = async () => {
+    const itemsCollection = await getDocs(itemsRef);
+    const items = itemsCollection.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    setItems(items);
+  };
+
+  const addItem = async (e) => {
+    e.preventDefault();
+    const item = {
+      title: inputTitle,
+      price: inputPrice,
+    };
+    await addDoc(itemsRef, item);
+    getItems();
+    setInputTitle("");
+    setInputPrice("");
+  };
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-    .then((response) => response.json())
-    .then((data) =>   {
-      setProductos(data);
-    });
+    getItems();
   }, []);
-
-
-
   return (
-
-     <div>
-      <Navbar icono="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqWnvWlrNEMWXXy-SpDyiD6MGp8lMPegST4A&usqp=CAU" />
-      
-      <h1>My app</h1>
+    <>
+      <Navbar />
       <Routes>
-      <Route path="/" element={<Navigate to="/home" />} />
-        
-        <Route path="/home" element={<Home />} />
-        <Route
-          path="/products"
-          element={<ProductList productos={productos} />}
-        />
-        <Route path="/productos/:id" element={<CardDetail />} />
-        <Route path="/cart" element={<h3>Cart</h3>} />
-        <Route path="/404" element={<h2>404 Not Found</h2>} />
-        <Route path="*" element={<Navigate to="/404" />} />
-
+        <Route exact path="/" element={Home} />
+        <Route exact path="/products" element={Products} />
+        <Route exact path="/products/:id" element={Product} />
+        <Route exact path="/cart" element={Cart} />
       </Routes>
-
-     </div> 
-   
-  ) 
+    </>
+  );
 }
 
-export default App
+export default App;

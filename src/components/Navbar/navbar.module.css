@@ -1,8 +1,0 @@
-
-.container_nav{
-    display: flex;
-    background-color: rgb(231, 219, 219);
-    color: rgb(254, 253, 253);
-    justify-content: space-around;
-    list-style: none;
-}
