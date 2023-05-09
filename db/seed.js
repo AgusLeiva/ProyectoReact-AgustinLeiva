@@ -1,7 +1,7 @@
 // sedear la db
 import { collection, addDoc } from "firebase/firestore";
 import db from "./firebase-config.js";
-import products from "../../products.js";
+import products from "../products.js";
 
 const itemsRef = collection(db, "items");
 
