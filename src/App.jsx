@@ -6,10 +6,14 @@ import Products from "./component/Products";
 import Product from "./component/Product";
 import Cart from "./component/Cart";
 import Checkout from "./component/Checkout"
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 import db from "../db/firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { Button } from "bootstrap";
 
 function App() {
 
@@ -22,7 +26,9 @@ function App() {
         <Route exact path="/products/:id" element={ <Product />} />
         <Route exact path="/cart" element={<Cart />} />
         <Route exact path="/checkout" element={<Checkout />} />
+        
       </Routes>
+      <ToastContainer />
     </>
   );
 }
